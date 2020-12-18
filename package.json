@@ -5,7 +5,11 @@
   "repository": "https://github.com/mju-likelion/mern-study_backend-example",
   "author": "yuyaebean <yuyaebean@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node -r esm src"
+  },
   "dependencies": {
+    "esm": "^3.2.25",
     "koa": "^2.13.0"
   },
   "devDependencies": {
