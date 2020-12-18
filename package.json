@@ -1,0 +1,11 @@
+{
+  "name": "mern-study_backend-example",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/mju-likelion/mern-study_backend-example",
+  "author": "yuyaebean <yuyaebean@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.13.0"
+  }
+}
