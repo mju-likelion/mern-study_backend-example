@@ -6,7 +6,8 @@
   "author": "yuyaebean <yuyaebean@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node -r esm src"
+    "start": "node -r esm src",
+    "start:dev": "nodemon --watch src/ src/index.js"
   },
   "dependencies": {
     "esm": "^3.2.25",
@@ -16,6 +17,7 @@
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.0.0",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6"
   }
 }
