@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 import Koa from 'koa';
+import Router from 'koa-router';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+
+import api from './api';
 
 dotenv.config();
 
@@ -14,6 +17,7 @@ if (!MONGO_URI) {
 async function connectDB() {
   try {
     await mongoose.connect(MONGO_URI, {
+      useCreateIndex: true,
       useNewUrlParser: true,
       useFindAndModify: false,
       useUnifiedTopology: true,
@@ -26,10 +30,10 @@ async function connectDB() {
 connectDB();
 
 const app = new Koa();
+const router = new Router();
 
-app.use(ctx => {
-  ctx.body = 'hello world';
-});
+router.use('/api', api.routes());
+app.use(router.routes()).use(router.allowedMethods());
 
 const port = PORT || 4000;
 app.listen(port, () => {
