@@ -10,8 +10,10 @@
     "start:dev": "nodemon --watch src/ src/index.js"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
-    "koa": "^2.13.0"
+    "koa": "^2.13.0",
+    "mongoose": "^5.11.8"
   },
   "devDependencies": {
     "eslint": "^7.15.0",
