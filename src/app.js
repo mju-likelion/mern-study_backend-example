@@ -24,7 +24,7 @@ async function connectDB() {
     });
     console.log('Connected to MongoDB');
   } catch (e) {
-    console.error(e);
+    throw Error(e);
   }
 }
 connectDB();

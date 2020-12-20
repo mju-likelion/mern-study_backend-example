@@ -14,6 +14,6 @@ const CommentSchema = new Schema(
   },
 );
 
-const Tag = model('Commment', CommentSchema);
+const Comment = model('Comment', CommentSchema);
 
-export default Tag;
+export default Comment;
