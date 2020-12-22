@@ -5,7 +5,7 @@ import User from '../../models/user';
 // 회원가입
 export const register = async ctx => {
   // Request body 검증
-  const schema = Joi.object().keys({
+  const schema = Joi.object({
     username: Joi.string().alphanum().min(3).max(20).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(6).max(256).required(),
@@ -40,8 +40,41 @@ export const register = async ctx => {
   }
 };
 
+// 로그인
 export const login = async ctx => {
-  // 로그인
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).max(256).required(),
+  });
+  const result = schema.validate(ctx.request.body);
+
+  if (result.error) {
+    ctx.status = 400; // Bad request
+    ctx.body = result.error;
+    return;
+  }
+
+  const { email, password } = ctx.request.body;
+  try {
+    // email이 존재하는지 확인
+    const user = await User.findOne({ email });
+    if (!user) {
+      ctx.status = 401; // Unauthorized
+      ctx.body = 'Wrong Email';
+      return;
+    }
+
+    const valid = await user.checkPassword(password);
+    if (!valid) {
+      ctx.status = 401; // Unauthorized
+      ctx.body = 'Wrong Password';
+      return;
+    }
+
+    ctx.status = 200;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 export const check = async ctx => {
