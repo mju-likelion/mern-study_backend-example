@@ -71,7 +71,7 @@ export const login = async ctx => {
       return;
     }
 
-    ctx.status = 200;
+    ctx.body = user.generateToken();
   } catch (e) {
     ctx.throw(500, e);
   }
