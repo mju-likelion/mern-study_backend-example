@@ -21,7 +21,7 @@ UserSchema.methods.checkPassword = async function (password) {
 UserSchema.methods.generateToken = function () {
   const token = jwt.sign(
     {
-      _id: this.id,
+      id: this.id,
     },
     process.env.JWT_SECRET,
     {
