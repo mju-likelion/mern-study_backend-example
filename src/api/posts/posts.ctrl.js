@@ -1,9 +1,37 @@
+import Joi from 'joi';
+import Post from '../../models/post';
+
 export const list = async ctx => {
   // 전체 글 조회
 };
 
+// 글 작성
 export const write = async ctx => {
-  // 글 작성
+  // Request body 검증
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    body: Joi.string(),
+  });
+  const result = schema.validate(ctx.request.body);
+
+  if (result.error) {
+    ctx.status = 400; // Bad request
+    ctx.body = result.error;
+    return;
+  }
+
+  const { title, body } = ctx.request.body;
+  const { user } = ctx.state;
+
+  try {
+    const post = new Post({ title, body, author: user.id });
+    await post.save();
+
+    const data = post.toJSON();
+    ctx.body = data;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 export const read = async ctx => {
