@@ -1,8 +1,11 @@
 import Joi from 'joi';
 import Post from '../../models/post';
 
+// 전체 글 조회
 export const list = async ctx => {
-  // 전체 글 조회
+  // username까지만 필요하므로 populate는 username만 한다
+  const posts = await Post.find({}).populate('author', 'username');
+  ctx.body = posts;
 };
 
 // 글 작성
