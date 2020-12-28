@@ -37,8 +37,21 @@ export const write = async ctx => {
   }
 };
 
+// 특정 글 조회
 export const read = async ctx => {
-  // 특정 글 조회
+  const { id } = ctx.params;
+
+  try {
+    // 특정 글 하나만 받아오기 때문에, email도 populate 합니다 (추후 client에서 사용할 예정)
+    const post = await Post.findById(id).populate('author', '-password');
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = post;
+  } catch (e) {
+    ctx.throw(e);
+  }
 };
 
 export const update = async ctx => {
