@@ -9,6 +9,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "consistent-return": "off",
     "func-names": "off"
   }
 }
