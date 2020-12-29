@@ -54,8 +54,34 @@ export const read = async ctx => {
   }
 };
 
+// 글 수정
 export const update = async ctx => {
-  // 글 수정
+  const schema = Joi.object({
+    title: Joi.string(),
+    body: Joi.string(),
+  });
+  const result = schema.validate(ctx.request.body);
+
+  if (result.error) {
+    ctx.status = 400; // Bad request
+    ctx.body = result.error;
+    return;
+  }
+
+  const { id } = ctx.params;
+
+  try {
+    // 아래의 세 번째 인자 { new: true } 는 업데이트된 값을 받기 위해서 넣은 인자
+    // 넣지 않을 경우 업데이트 이전의 데이터가 반환됨
+    const affacted = await Post.findByIdAndUpdate(
+      id,
+      { ...ctx.request.body },
+      { new: true },
+    );
+    ctx.body = affacted;
+  } catch (e) {
+    ctx.throw(e);
+  }
 };
 
 export const remove = async ctx => {
