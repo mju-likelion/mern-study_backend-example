@@ -84,6 +84,14 @@ export const update = async ctx => {
   }
 };
 
+// 글 삭제
 export const remove = async ctx => {
-  // 글 삭제
+  const { id } = ctx.params;
+
+  try {
+    await Post.findByIdAndDelete(id);
+    ctx.status = 204; // No Content
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
