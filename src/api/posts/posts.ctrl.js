@@ -27,7 +27,7 @@ export const write = async ctx => {
   const { user } = ctx.state;
 
   try {
-    const post = new Post({ title, body, author: user.id });
+    const post = new Post({ title, body, author: user._id });
     await post.save();
 
     const data = post.toJSON();
