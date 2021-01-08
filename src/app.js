@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
+import logger from 'koa-logger';
 import Router from 'koa-router';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
@@ -35,6 +36,7 @@ const app = new Koa();
 const router = new Router();
 
 router.use('/api', api.routes());
+app.use(logger());
 app.use(bodyParser());
 app.use(jwtMiddleware);
 app.use(router.routes()).use(router.allowedMethods());
